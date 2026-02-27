@@ -1,13 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
 @import "tailwindcss";
 
-html,
-body,
-#root {
-  max-width: 100%;
+body{
+  width: 100%;
   overflow-x: hidden;
 }
 
+html, body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
 
 @layer base {
   body {

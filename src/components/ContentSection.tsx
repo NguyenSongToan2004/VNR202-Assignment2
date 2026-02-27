@@ -20,12 +20,12 @@ const ContentSection: React.FC<ContentSectionProps> = ({
   onOpenModal,
 }) => {
   return (
-    <section className={`content-section relative min-h-screen flex items-center justify-center py-20 section-${sectionIndex}`}>
+    <section className={`content-section relative min-h-screen overflow-hidden flex items-center justify-center section-${sectionIndex}`}>
       <div className="absolute left-16 top-1/2 -translate-y-1/2 text-8xl md:text-[16rem] lg:text-[20rem] font-bold text-white/5 opacity-50 pointer-events-none select-none">
         {year}
       </div>
 
-      <div className="section-content w-full max-w-4xl px-8 text-left ml-auto mr-4 md:mr-20 lg:mr-28">
+      <div className="section-content w-full max-w-4xl px-8 text-left ml-auto md:pr-20 lg:pr-28">
         <p className="text-sm uppercase tracking-[0.2em] text-secondary-4/60 mb-2">{phase}</p>
         <h2 className="text-4xl font-bold text-secondary-3 mb-2">{year}</h2>
         <h3 className="text-2xl md:text-3xl font-bold text-secondary-4 mb-3">{title}</h3>

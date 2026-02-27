@@ -52,10 +52,10 @@ export default function Hero() {
 
         Bắt đầu du hành
       </button>
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2 animate-bounce">
+      {/* <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2 animate-bounce">
         <span className="text-sm text-secondary-4/70">Cuộn xuống</span>
         <div className="w-4 h-4 border-b-2 border-r-2 border-secondary-4/70 transform rotate-45"></div>
-      </div>
+      </div> */}
     </section>
   );
 }

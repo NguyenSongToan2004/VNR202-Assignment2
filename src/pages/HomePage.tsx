@@ -107,7 +107,7 @@ export default function HomePage() {
 
   return (
     <>
-      <main ref={mainRef} className="w-full bg-primary main-content">
+      <main ref={mainRef} className="w-full bg-primary main-content overflow-hidden">
         <Hero />
         <div className="relative">
           <Timeline />
