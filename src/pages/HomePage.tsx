@@ -105,40 +105,42 @@ export default function HomePage() {
     const refresh = () => ScrollTrigger.refresh();
 
     window.addEventListener("load", refresh);
-    setTimeout(refresh, 300);
+    setTimeout(refresh, 200);
 
     return () => {
       window.removeEventListener("load", refresh);
       ctx.revert();
     };
+
+    ctx.revert();
   }, []);
 
   return (
     <>
       <main ref={mainRef} className="w-full bg-primary main-content">
-        <div className='overflow-hidden'>
-          <Hero />
-          <div className="relative">
-            <Timeline />
-            <div className="content-container">
-              {TIMELINE_DATA.map((item, index) => (
-                <ContentSection
-                  key={item.year}
-                  year={item.year}
-                  phase={item.phase}
-                  subtitle={item.subtitle}
-                  title={item.title}
-                  summary={item.summary}
-                  context={item.context}
-                  keywords={item.keywords}
-                  imageHint={item.imageHint}
-                  quote={item.quote}
-                  sectionIndex={index}
-                  onOpenModal={() => openModal(item)}
-                />
-              ))}
-            </div>
+        <Hero />
+        <div className="relative">
+          <Timeline />
+          <div className="content-container">
+            {TIMELINE_DATA.map((item, index) => (
+              <ContentSection
+                key={item.year}
+                year={item.year}
+                phase={item.phase}
+                subtitle={item.subtitle}
+                title={item.title}
+                summary={item.summary}
+                context={item.context}
+                keywords={item.keywords}
+                imageHint={item.imageHint}
+                quote={item.quote}
+                sectionIndex={index}
+                onOpenModal={() => openModal(item)}
+              />
+            ))}
           </div>
+        </div>
+        <div className='overflow-hidden'>
           <StatsSection />
         </div>
 
