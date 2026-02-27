@@ -115,30 +115,33 @@ export default function HomePage() {
 
   return (
     <>
-      <main ref={mainRef} className="w-full bg-primary main-content overflow-hidden">
-        <Hero />
-        <div className="relative">
-          <Timeline />
-          <div className="content-container">
-            {TIMELINE_DATA.map((item, index) => (
-              <ContentSection
-                key={item.year}
-                year={item.year}
-                phase={item.phase}
-                subtitle={item.subtitle}
-                title={item.title}
-                summary={item.summary}
-                context={item.context}
-                keywords={item.keywords}
-                imageHint={item.imageHint}
-                quote={item.quote}
-                sectionIndex={index}
-                onOpenModal={() => openModal(item)}
-              />
-            ))}
+      <main ref={mainRef} className="w-full bg-primary main-content">
+        <div className='overflow-hidden'>
+          <Hero />
+          <div className="relative">
+            <Timeline />
+            <div className="content-container">
+              {TIMELINE_DATA.map((item, index) => (
+                <ContentSection
+                  key={item.year}
+                  year={item.year}
+                  phase={item.phase}
+                  subtitle={item.subtitle}
+                  title={item.title}
+                  summary={item.summary}
+                  context={item.context}
+                  keywords={item.keywords}
+                  imageHint={item.imageHint}
+                  quote={item.quote}
+                  sectionIndex={index}
+                  onOpenModal={() => openModal(item)}
+                />
+              ))}
+            </div>
           </div>
+          <StatsSection />
         </div>
-        <StatsSection />
+
       </main>
 
 
