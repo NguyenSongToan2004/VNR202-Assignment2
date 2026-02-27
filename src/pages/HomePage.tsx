@@ -25,7 +25,7 @@ export default function HomePage() {
         scale: 0.96,
       });
 
-      if (sections.length > 0 ) {
+      if (sections.length > 0) {
         ScrollTrigger.create({
           trigger: sections[0],
           start: 'top 85%',
@@ -102,8 +102,15 @@ export default function HomePage() {
       });
     }, mainRef);
 
-    ScrollTrigger.refresh();
-    return () => ctx.revert();
+    const refresh = () => ScrollTrigger.refresh();
+
+    window.addEventListener("load", refresh);
+    setTimeout(refresh, 300);
+
+    return () => {
+      window.removeEventListener("load", refresh);
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -133,8 +140,8 @@ export default function HomePage() {
         </div>
         <StatsSection />
       </main>
-      
-      
+
+
     </>
   );
 }
