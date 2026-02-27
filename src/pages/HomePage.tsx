@@ -25,7 +25,7 @@ export default function HomePage() {
         scale: 0.96,
       });
 
-      if (sections.length > 0) {
+      if (sections.length > 0 ) {
         ScrollTrigger.create({
           trigger: sections[0],
           start: 'top 85%',
@@ -102,6 +102,7 @@ export default function HomePage() {
       });
     }, mainRef);
 
+    ScrollTrigger.refresh();
     return () => ctx.revert();
   }, []);
 
