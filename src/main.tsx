@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import VideoPage from './pages/VideoPage';
 import AiUsagePage from './pages/AiUsagePage';
 import ContactPage from './pages/ContactPage';
+import GamePage from './pages/GamePage';
 import { ModalProvider } from './context/ModalContext';
 import './index.css';
 
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
       { path: 'video', element: <VideoPage /> },
       { path: 'ai-usage', element: <AiUsagePage /> },
       { path: 'lien-he-thuc-tien', element: <ContactPage /> },
+      { path: 'game', element: <GamePage /> },
     ],
   },
 ]);

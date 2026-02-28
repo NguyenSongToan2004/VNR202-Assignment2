@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const navLinks = [
   { path: '/', label: 'Du hành thời gian' },
+  { path: '/game', label: 'Game' },
   { path: '/video', label: 'Xem video' },
   { path: '/ai-usage', label: 'AI Usage' },
   { path: '/lien-he-thuc-tien', label: 'Liên hệ thực tiễn' },
