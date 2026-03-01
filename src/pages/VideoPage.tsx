@@ -142,7 +142,7 @@ export default function VideoPage() {
 
               <iframe
                 className={`w-full h-full transition-opacity duration-500 ${isIframeReady ? 'opacity-100' : 'opacity-0'}`}
-                src="https://www.youtube.com/embed/HwmivDS-x34?si=_sSjRFXo_OA6PTS5"
+                src="https://www.youtube.com/embed/-OkaxUqNqhQ?si=iHFJ4HkIgvdlVNbe"
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
