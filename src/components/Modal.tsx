@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { TimelineEvent } from '../constants';
 
+const parseImageUrls = (hint: string): string[] => hint.match(/https?:\/\/[^\s,]+/gi) ?? [];
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -28,6 +30,8 @@ export default function Modal({ isOpen, onClose, data }: ModalProps) {
   }, [isOpen]);
 
   if (!data) return null;
+
+  const imageUrls = parseImageUrls(data.imageHint);
 
   return (
     <div
@@ -87,7 +91,21 @@ export default function Modal({ isOpen, onClose, data }: ModalProps) {
 
           <section>
             <h5 className="text-lg font-semibold text-secondary-3 mb-2">Hình ảnh gợi ý</h5>
-            <p className="text-secondary-4/90 leading-relaxed">{data.imageHint}</p>
+            {imageUrls.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
+                {imageUrls.map((src, i) => (
+                  <img
+                    key={`modal-img-${i}`}
+                    src={src}
+                    alt={`Minh họa ${i + 1}`}
+                    className="w-full aspect-video object-contain rounded-lg border border-secondary-4/30 bg-secondary-2/20"
+                    referrerPolicy="no-referrer"
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="text-secondary-4/90 leading-relaxed">{data.imageHint}</p>
+            )}
           </section>
 
           <section>
