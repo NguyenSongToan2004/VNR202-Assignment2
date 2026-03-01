@@ -4,6 +4,7 @@ import { TimelineEvent } from '../constants';
 interface ContentSectionProps extends Pick<TimelineEvent, 'year' | 'phase' | 'subtitle' | 'title' | 'summary' | 'context' | 'keywords' | 'imageHint' | 'quote'> {
   sectionIndex: number;
   onOpenModal: () => void;
+  onOpenLightbox?: (src: string, description: string) => void;
 }
 
 const parseImageUrls = (hint: string): string[] => {
@@ -23,6 +24,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({
   quote,
   sectionIndex,
   onOpenModal,
+  onOpenLightbox,
 }) => {
   const imageUrls = parseImageUrls(imageHint);
   const hasImages = imageUrls.length > 0;
@@ -50,15 +52,30 @@ const ContentSection: React.FC<ContentSectionProps> = ({
           <p className="text-sm uppercase tracking-wider text-secondary-4/60 mb-2">Hình ảnh minh họa (gợi ý)</p>
           {hasImages ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
-              {imageUrls.map((src, i) => (
-                <img
-                  key={`${year}-img-${i}`}
-                  src={src}
-                  alt={`Minh họa ${i + 1}`}
-                  className="w-full aspect-video object-contain rounded-lg border border-secondary-4/30 bg-secondary-2/20"
-                  referrerPolicy="no-referrer"
-                />
-              ))}
+              {imageUrls.map((src, i) => {
+                const description = `${title} — Minh họa ${i + 1}`;
+                const imgNode = (
+                  <img
+                    key={`${year}-img-${i}`}
+                    src={src}
+                    alt={description}
+                    className="w-full aspect-video object-contain rounded-lg border border-secondary-4/30 bg-secondary-2/20 cursor-zoom-in"
+                    referrerPolicy="no-referrer"
+                  />
+                );
+                return onOpenLightbox ? (
+                  <button
+                    type="button"
+                    key={`${year}-img-${i}`}
+                    onClick={() => onOpenLightbox(src, description)}
+                    className="block w-full cursor-zoom-in border-0 p-0 bg-transparent text-left"
+                  >
+                    {imgNode}
+                  </button>
+                ) : (
+                  <React.Fragment key={`${year}-img-${i}`}>{imgNode}</React.Fragment>
+                );
+              })}
             </div>
           ) : (
             <p className="text-secondary-4/85">{imageHint}</p>

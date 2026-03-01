@@ -208,7 +208,7 @@ export default function NoiDungCuongLinhPage() {
                   <p className="mt-2 text-secondary-4 text-sm font-medium">Đánh đuổi đế quốc chủ nghĩa Pháp</p>
                 </div>
                 <div className="flex flex-col items-center text-center min-w-0">
-                  <button type="button" onClick={() => setLightbox({ src: 'https://lichsuvn.net/trang-chu/wp-content/uploads/2021/08/tECvb4T6.jpg', alt: 'Tư liệu lịch sử' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent">
+                  <button type="button" onClick={() => setLightbox({ src: 'https://lichsuvn.net/trang-chu/wp-content/uploads/2021/08/tECvb4T6.jpg', alt: 'Vua Bảo Đại thoái vị' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent">
                     <img
                       src="https://lichsuvn.net/trang-chu/wp-content/uploads/2021/08/tECvb4T6.jpg"
                       alt="Tư liệu lịch sử"
@@ -234,9 +234,9 @@ export default function NoiDungCuongLinhPage() {
                 <li>
                   • Dân chúng được tự do tổ chức
                   <div className="mt-4 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-                    <button type="button" onClick={() => setLightbox({ src: 'https://cdn2.olm.vn/docviewer/file/dethi/lichsu/5f047f95e3c0f.jpg', alt: 'Tư liệu dân chúng được tự do tổ chức' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent text-left"><img src="https://cdn2.olm.vn/docviewer/file/dethi/lichsu/5f047f95e3c0f.jpg" alt="Tư liệu dân chúng được tự do tổ chức" className="w-full aspect-[4/3] object-cover rounded-xl border border-secondary-4/30 bg-secondary-2/20" referrerPolicy="no-referrer" /></button>
-                    <button type="button" onClick={() => setLightbox({ src: 'https://cdn2.olm.vn/docviewer/file/dethi/lichsu/5f047fc807484.jpg', alt: 'Tư liệu dân chúng được tự do tổ chức' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent text-left"><img src="https://cdn2.olm.vn/docviewer/file/dethi/lichsu/5f047fc807484.jpg" alt="Tư liệu dân chúng được tự do tổ chức" className="w-full aspect-[4/3] object-cover rounded-xl border border-secondary-4/30 bg-secondary-2/20" referrerPolicy="no-referrer" /></button>
-                    <button type="button" onClick={() => setLightbox({ src: 'https://cdn2.olm.vn/docviewer/file/dethi/lichsu/5f04801023dc5.jpg', alt: 'Tư liệu dân chúng được tự do tổ chức' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent text-left"><img src="https://cdn2.olm.vn/docviewer/file/dethi/lichsu/5f04801023dc5.jpg" alt="Tư liệu dân chúng được tự do tổ chức" className="w-full aspect-[4/3] object-cover rounded-xl border border-secondary-4/30 bg-secondary-2/20" referrerPolicy="no-referrer" /></button>
+                    <button type="button" onClick={() => setLightbox({ src: 'https://cdn2.olm.vn/docviewer/file/dethi/lichsu/5f047f95e3c0f.jpg', alt: 'Lược đồ phong trào đấu tranh ở Nghệ - Tĩnh' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent text-left"><img src="https://cdn2.olm.vn/docviewer/file/dethi/lichsu/5f047f95e3c0f.jpg" alt="Tư liệu dân chúng được tự do tổ chức" className="w-full aspect-[4/3] object-cover rounded-xl border border-secondary-4/30 bg-secondary-2/20" referrerPolicy="no-referrer" /></button>
+                    <button type="button" onClick={() => setLightbox({ src: 'https://cdn2.olm.vn/docviewer/file/dethi/lichsu/5f047fc807484.jpg', alt: 'Cuộc đấu tranh của công - nông Nghệ An - Hà Tĩnh' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent text-left"><img src="https://cdn2.olm.vn/docviewer/file/dethi/lichsu/5f047fc807484.jpg" alt="Tư liệu dân chúng được tự do tổ chức" className="w-full aspect-[4/3] object-cover rounded-xl border border-secondary-4/30 bg-secondary-2/20" referrerPolicy="no-referrer" /></button>
+                    <button type="button" onClick={() => setLightbox({ src: 'https://cdn2.olm.vn/docviewer/file/dethi/lichsu/5f04801023dc5.jpg', alt: 'Cuộc đấu tranh của nông dân Hưng Nguyên' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent text-left"><img src="https://cdn2.olm.vn/docviewer/file/dethi/lichsu/5f04801023dc5.jpg" alt="Tư liệu dân chúng được tự do tổ chức" className="w-full aspect-[4/3] object-cover rounded-xl border border-secondary-4/30 bg-secondary-2/20" referrerPolicy="no-referrer" /></button>
                   </div>
                 </li>
                 <li>• Nam nữ bình quyền
@@ -336,7 +336,7 @@ export default function NoiDungCuongLinhPage() {
                   <div className="mt-4 w-full grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                     <button type="button" onClick={() => setLightbox({ src: 'https://tse1.mm.bing.net/th/id/OIP.OiWmw8p2ikTlXFdC6g2dwQHaE7?rs=1&pid=ImgDetMain&o=7&rm=3', alt: 'Tư liệu thi hành luật 8 giờ' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent text-left"><img src="https://tse1.mm.bing.net/th/id/OIP.OiWmw8p2ikTlXFdC6g2dwQHaE7?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Tư liệu thi hành luật 8 giờ" className="w-full aspect-[4/3] object-cover rounded-xl border border-secondary-4/30 bg-secondary-2/20" referrerPolicy="no-referrer" /></button>
                     <button type="button" onClick={() => setLightbox({ src: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800', alt: 'Tư liệu ngày làm tám giờ' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent text-left"><img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800" alt="Tư liệu ngày làm tám giờ" className="w-full aspect-[4/3] object-cover rounded-xl border border-secondary-4/30 bg-secondary-2/20" referrerPolicy="no-referrer" /></button>
-                    <button type="button" onClick={() => setLightbox({ src: 'https://tse4.mm.bing.net/th/id/OIP.PUiSFsMeen3Bo3QUD2V5EwHaKX?rs=1&pid=ImgDetMain&o=7&rm=3', alt: 'Tư liệu thi hành luật 8 giờ' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent text-left"><img src="https://tse4.mm.bing.net/th/id/OIP.PUiSFsMeen3Bo3QUD2V5EwHaKX?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Tư liệu thi hành luật 8 giờ" className="w-full aspect-[4/3] object-cover rounded-xl border border-secondary-4/30 bg-secondary-2/20" referrerPolicy="no-referrer" /></button>
+                    <button type="button" onClick={() => setLightbox({ src: 'https://tse4.mm.bing.net/th/id/OIP.PUiSFsMeen3Bo3QUD2V5EwHaKX?rs=1&pid=ImgDetMain&o=7&rm=3', alt: 'Tư liệu luật lao động 2019' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent text-left"><img src="https://tse4.mm.bing.net/th/id/OIP.PUiSFsMeen3Bo3QUD2V5EwHaKX?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Tư liệu luật lao động 2019" className="w-full aspect-[4/3] object-cover rounded-xl border border-secondary-4/30 bg-secondary-2/20" referrerPolicy="no-referrer" /></button>
                   </div>
                 </li>
               </ul>
@@ -413,9 +413,9 @@ export default function NoiDungCuongLinhPage() {
               <li>Cách mạng Việt Nam là một bộ phận của cách mạng vô sản thế giới</li>
                  
                  <div className="mt-4 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-                   <button type="button" onClick={() => setLightbox({ src: 'https://tse4.mm.bing.net/th/id/OIP.YfUUoJjr-8EBHGrKxWZAaAHaEK?rs=1&pid=ImgDetMain&o=7&rm=3', alt: 'Cách mạng vô sản thế giới' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent text-left"><img src="https://tse4.mm.bing.net/th/id/OIP.YfUUoJjr-8EBHGrKxWZAaAHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Cách mạng vô sản thế giới" className="w-full aspect-[4/3] object-cover rounded-xl border border-secondary-4/30 bg-secondary-2/20" referrerPolicy="no-referrer" /></button>
-                   <button type="button" onClick={() => setLightbox({ src: 'https://images.hcmcpv.org.vn/res/news/2021/07/06-07-2021-nguyen-ai-quoc-den-voi-luan-cuong-cua-lenin-buoc-ngoat-cua-cac-mang-viet-nam-923BB9E0.jpg', alt: 'Nguyễn Ái Quốc đến với Luận cương của Lênin' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent text-left"><img src="https://images.hcmcpv.org.vn/res/news/2021/07/06-07-2021-nguyen-ai-quoc-den-voi-luan-cuong-cua-lenin-buoc-ngoat-cua-cac-mang-viet-nam-923BB9E0.jpg" alt="Nguyễn Ái Quốc đến với Luận cương của Lênin" className="w-full aspect-[4/3] object-cover rounded-xl border border-secondary-4/30 bg-secondary-2/20" referrerPolicy="no-referrer" /></button>
-                   <button type="button" onClick={() => setLightbox({ src: 'https://preview.redd.it/nguyen-ai-quoc-ho-chi-minh-in-france-1919-v0-v9aa66acn45c1.png?width=1025&format=png&auto=webp&s=80334468ad8de39d286e169a9735f6fd99b9835e', alt: 'Nguyễn Ái Quốc (Hồ Chí Minh) tại Pháp 1919' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent text-left"><img src="https://preview.redd.it/nguyen-ai-quoc-ho-chi-minh-in-france-1919-v0-v9aa66acn45c1.png?width=1025&format=png&auto=webp&s=80334468ad8de39d286e169a9735f6fd99b9835e" alt="Nguyễn Ái Quốc (Hồ Chí Minh) tại Pháp 1919" className="w-full aspect-[4/3] object-cover rounded-xl border border-secondary-4/30 bg-secondary-2/20" referrerPolicy="no-referrer" /></button>
+                   <button type="button" onClick={() => setLightbox({ src: 'https://tse4.mm.bing.net/th/id/OIP.YfUUoJjr-8EBHGrKxWZAaAHaEK?rs=1&pid=ImgDetMain&o=7&rm=3', alt: 'Liên Xô' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent text-left"><img src="https://tse4.mm.bing.net/th/id/OIP.YfUUoJjr-8EBHGrKxWZAaAHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Liên Xô" className="w-full aspect-[4/3] object-cover rounded-xl border border-secondary-4/30 bg-secondary-2/20" referrerPolicy="no-referrer" /></button>
+                   <button type="button" onClick={() => setLightbox({ src: 'https://images.hcmcpv.org.vn/res/news/2021/07/06-07-2021-nguyen-ai-quoc-den-voi-luan-cuong-cua-lenin-buoc-ngoat-cua-cac-mang-viet-nam-923BB9E0.jpg', alt: 'Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lênnin xem cách mạng giải phóng dân tộc, thuộc địa là phong trào cách mạng vô sản' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent text-left"><img src="https://images.hcmcpv.org.vn/res/news/2021/07/06-07-2021-nguyen-ai-quoc-den-voi-luan-cuong-cua-lenin-buoc-ngoat-cua-cac-mang-viet-nam-923BB9E0.jpg" alt="Nguyễn Ái Quốc đến với Luận cương của Lênin" className="w-full aspect-[4/3] object-cover rounded-xl border border-secondary-4/30 bg-secondary-2/20" referrerPolicy="no-referrer" /></button>
+                   <button type="button" onClick={() => setLightbox({ src: 'https://preview.redd.it/nguyen-ai-quoc-ho-chi-minh-in-france-1919-v0-v9aa66acn45c1.png?width=1025&format=png&auto=webp&s=80334468ad8de39d286e169a9735f6fd99b9835e', alt: 'Nguyễn Ái Quốc là thành viên của Quốc Tế III' })} className="block w-full cursor-zoom-in border-0 p-0 bg-transparent text-left"><img src="https://preview.redd.it/nguyen-ai-quoc-ho-chi-minh-in-france-1919-v0-v9aa66acn45c1.png?width=1025&format=png&auto=webp&s=80334468ad8de39d286e169a9735f6fd99b9835e" alt="Nguyễn Ái Quốc (Hồ Chí Minh) tại Pháp 1919" className="w-full aspect-[4/3] object-cover rounded-xl border border-secondary-4/30 bg-secondary-2/20" referrerPolicy="no-referrer" /></button>
                  </div>
                   <li>Bạo lực cách mạng của quần chúng, không thỏa hiệp trong bất cứ hoàn cảnh nào. </li>
                   <div className="mt-4 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
@@ -514,7 +514,7 @@ export default function NoiDungCuongLinhPage() {
         {/* Lightbox phóng to ảnh */}
         {lightbox && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/80 p-4"
             onClick={() => setLightbox(null)}
             role="dialog"
             aria-modal="true"
@@ -528,13 +528,19 @@ export default function NoiDungCuongLinhPage() {
             >
               ×
             </button>
-            <img
-              src={lightbox.src}
-              alt={lightbox.alt}
-              className="max-w-full max-h-[90vh] w-auto h-auto object-contain rounded-lg shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-              referrerPolicy="no-referrer"
-            />
+            <div className="flex flex-col items-center gap-3 max-w-full max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
+              <img
+                src={lightbox.src}
+                alt={lightbox.alt}
+                className="max-w-full max-h-[75vh] w-auto h-auto object-contain rounded-lg shadow-2xl"
+                referrerPolicy="no-referrer"
+              />
+              {lightbox.alt && (
+                <p className="text-white/90 text-center text-sm sm:text-base px-4 max-w-2xl">
+                  {lightbox.alt}
+                </p>
+              )}
+            </div>
           </div>
         )}
       </div>
