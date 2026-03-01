@@ -68,7 +68,7 @@ export const TIMELINE_DATA: TimelineEvent[] = [
     ],
     relatedFigures: ['Triều đình Huế', 'Toàn quyền Pháp tại Đông Dương', 'Sĩ phu yêu nước'],
     significance: ['Đẩy phong trào yêu nước chuyển dần sang khuynh hướng mới.', 'Tạo tiền đề xuất hiện tư tưởng cách mạng hiện đại.'],
-    imageHint: 'https://tse1.mm.bing.net/th/id/OIP.qNKkyNpQm4AdgLBXCjs7nwAAAA?rs=1&pid=ImgDetMain&o=7&rm=3 , https://video-thumbs.mediacdn.vn/zoom/600_315/vtv/2022/2/17/1702khatvongnonsong-16451113426801201291114-c4314_thumb6.jpg , https://tse3.mm.bing.net/th/id/OIP.PqhAsWg7Qm2VU5qkd9Un4gHaKq?rs=1&pid=ImgDetMain&o=7&rm=3 , https://vietjack.me/storage/uploads/images/11/5-1633939114.png',
+    imageHint: 'https://tse1.mm.bing.net/th/id/OIP.qNKkyNpQm4AdgLBXCjs7nwAAAA?rs=1&pid=ImgDetMain&o=7&rm=3 , https://video-thumbs.mediacdn.vn/zoom/600_315/vtv/2022/2/17/1702khatvongnonsong-16451113426801201291114-c4314_thumb6.jpg , https://tse3.mm.bing.net/th/id/OIP.PqhAsWg7Qm2VU5qkd9Un4gHaKq?rs=1&pid=ImgDetMain&o=7&rm=3',
     keywords: ['Patenôtre', 'Bảo hộ', 'Lệ thuộc', 'Phong trào yêu nước'],
   },
   {

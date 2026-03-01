@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
@@ -11,9 +11,21 @@ import { useModal } from '../context/ModalContext';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+type LightboxState = { src: string; description: string } | null;
+
 export default function HomePage() {
   const mainRef = useRef<HTMLDivElement>(null);
   const { openModal } = useModal();
+  const [lightbox, setLightbox] = useState<LightboxState>(null);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightbox(null);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [lightbox]);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -136,6 +148,7 @@ export default function HomePage() {
                 quote={item.quote}
                 sectionIndex={index}
                 onOpenModal={() => openModal(item)}
+                onOpenLightbox={(src, description) => setLightbox({ src, description })}
               />
             ))}
           </div>
@@ -144,9 +157,39 @@ export default function HomePage() {
           <StatsSection />
         </div>
 
+        {/* Lightbox phóng to ảnh minh họa */}
+        {lightbox && (
+          <div
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/80 p-4"
+            onClick={() => setLightbox(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Xem ảnh phóng to"
+          >
+            <button
+              type="button"
+              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center text-xl font-bold"
+              onClick={() => setLightbox(null)}
+              aria-label="Đóng"
+            >
+              ×
+            </button>
+            <div className="flex flex-col items-center gap-3 max-w-full max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
+              <img
+                src={lightbox.src}
+                alt={lightbox.description}
+                className="max-w-full max-h-[75vh] w-auto h-auto object-contain rounded-lg shadow-2xl"
+                referrerPolicy="no-referrer"
+              />
+              {lightbox.description && (
+                <p className="text-white/90 text-center text-sm sm:text-base px-4 max-w-2xl">
+                  {lightbox.description}
+                </p>
+              )}
+            </div>
+          </div>
+        )}
       </main>
-
-
     </>
   );
 }
