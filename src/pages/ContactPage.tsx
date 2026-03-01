@@ -679,7 +679,6 @@ export default function ContactPage() {
 
           <div className="grid md:grid-cols-2 gap-5">
             <div className="relative rounded-2xl border border-[#34D399]/30 bg-[#34D399]/6 p-6 overflow-hidden">
-              <span className="pointer-events-none absolute -right-2 -bottom-4 text-8xl font-black text-[#34D399]/8 select-none leading-none" aria-hidden="true">2030</span>
               <div className="flex items-center gap-3 mb-4">
                 <span className="px-3 py-1 rounded-full bg-[#34D399]/20 text-[#34D399] text-sm font-black">2030</span>
                 <span className="text-xs text-secondary-4/50">100 năm thành lập Đảng</span>
@@ -691,7 +690,6 @@ export default function ContactPage() {
               </ul>
             </div>
             <div className="relative rounded-2xl border border-[#FFCB9A]/30 bg-[#FFCB9A]/6 p-6 overflow-hidden">
-              <span className="pointer-events-none absolute -right-2 -bottom-4 text-8xl font-black text-[#FFCB9A]/8 select-none leading-none" aria-hidden="true">2045</span>
               <div className="flex items-center gap-3 mb-4">
                 <span className="px-3 py-1 rounded-full bg-[#FFCB9A]/25 text-[#D9A04A] text-sm font-black">2045</span>
                 <span className="text-xs text-secondary-4/50">100 năm thành lập nước</span>
