@@ -6,6 +6,11 @@ interface ContentSectionProps extends Pick<TimelineEvent, 'year' | 'phase' | 'su
   onOpenModal: () => void;
 }
 
+const parseImageUrls = (hint: string): string[] => {
+  const urlPattern = /https?:\/\/[^\s,]+/gi;
+  return hint.match(urlPattern) ?? [];
+};
+
 const ContentSection: React.FC<ContentSectionProps> = ({
   year,
   phase,
@@ -19,6 +24,9 @@ const ContentSection: React.FC<ContentSectionProps> = ({
   sectionIndex,
   onOpenModal,
 }) => {
+  const imageUrls = parseImageUrls(imageHint);
+  const hasImages = imageUrls.length > 0;
+
   return (
     <section className={`content-section relative min-h-screen overflow-hidden flex items-center justify-center section-${sectionIndex}`}>
       <div className="absolute left-16 top-1/2 -translate-y-1/2 text-8xl md:text-[16rem] lg:text-[20rem] font-bold text-white/5 opacity-50 pointer-events-none select-none">
@@ -40,7 +48,21 @@ const ContentSection: React.FC<ContentSectionProps> = ({
 
         <div className="rounded-xl border border-secondary-4/20 bg-primary/40 p-4 mb-4">
           <p className="text-sm uppercase tracking-wider text-secondary-4/60 mb-2">Hình ảnh minh họa (gợi ý)</p>
-          <p className="text-secondary-4/85">{imageHint}</p>
+          {hasImages ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
+              {imageUrls.map((src, i) => (
+                <img
+                  key={`${year}-img-${i}`}
+                  src={src}
+                  alt={`Minh họa ${i + 1}`}
+                  className="w-full aspect-video object-contain rounded-lg border border-secondary-4/30 bg-secondary-2/20"
+                  referrerPolicy="no-referrer"
+                />
+              ))}
+            </div>
+          ) : (
+            <p className="text-secondary-4/85">{imageHint}</p>
+          )}
         </div>
 
         <div className="flex flex-wrap gap-2 mb-4">

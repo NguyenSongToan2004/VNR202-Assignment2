@@ -15,6 +15,25 @@ export interface TimelineEvent {
 
 export const TIMELINE_DATA: TimelineEvent[] = [
   {
+    year: 'Nửa sau thế kỷ XIX',
+    phase: 'Giai đoạn 1: Bối cảnh lịch sử',
+    subtitle: 'Chủ nghĩa tư bản chuyển sang giai đoạn đế quốc chủ nghĩa',
+    title: 'Bối cảnh thế giới: Đế quốc chủ nghĩa và xâm lược thuộc địa',
+    summary: 'Từ nửa sau thế kỷ XIX, các nước tư bản Âu-Mỹ có những chuyển biến mạnh mẽ; chủ nghĩa tư bản chuyển từ tự do cạnh tranh sang độc quyền, đẩy mạnh xâm chiếm và nô dịch các nước nhỏ, yếu ở châu Á, châu Phi và Mỹ-Latinh.',
+    context:
+      'Từ nửa sau thế kỷ XIX, các nước tư bản Âu-Mỹ có những chuyển biến mạnh mẽ trong đời sống kinh tế - xã hội. Chủ nghĩa tư bản phương Tây chuyển nhanh từ giai đoạn tự do cạnh tranh sang giai đoạn độc quyền (giai đoạn đế quốc chủ nghĩa), đẩy mạnh quá trình xâm chiếm và nô dịch các nước nhỏ, yếu ở châu Á, châu Phi và khu vực Mỹ-Latinh, biến các quốc gia này thành thuộc địa của các nước đế quốc.',
+    mainContent: [
+      'Các nước tư bản Âu-Mỹ chuyển biến mạnh mẽ về kinh tế - xã hội.',
+      'Chủ nghĩa tư bản chuyển từ tự do cạnh tranh sang giai đoạn độc quyền (đế quốc chủ nghĩa).',
+      'Đẩy mạnh xâm chiếm và nô dịch các nước nhỏ, yếu ở châu Á, châu Phi, Mỹ-Latinh.',
+      'Biến nhiều quốc gia thành thuộc địa của các nước đế quốc.',
+    ],
+    relatedFigures: ['Các nước đế quốc Âu-Mỹ', 'Các dân tộc thuộc địa'],
+    significance: ['Tạo bối cảnh quốc tế dẫn tới nguy cơ xâm lược Việt Nam.', 'Giải thích động lực thực dân Pháp mở rộng thuộc địa ở Đông Dương.'],
+    imageHint: 'https://img.loigiaihay.com/picture/2020/0527/luoc-do-pham-vi-thuoc-dia-cua-cac-nuoc-de-quoc-dau-the-ki-xx.png , https://vietjack.me/storage/uploads/images/19/untitled-1635158407.png',
+    keywords: ['Đế quốc chủ nghĩa', 'Thuộc địa', 'Tự do cạnh tranh', 'Độc quyền'],
+  },
+  {
     year: '1858',
     phase: 'Giai đoạn 1: Bối cảnh lịch sử',
     subtitle: 'Thực dân Pháp nổ súng xâm lược Việt Nam',
@@ -30,7 +49,7 @@ export const TIMELINE_DATA: TimelineEvent[] = [
     ],
     relatedFigures: ['Nhân dân Việt Nam', 'Triều đình nhà Nguyễn', 'Quân đội thực dân Pháp'],
     significance: ['Mở đầu thời kỳ đô hộ của thực dân Pháp.', 'Làm xã hội Việt Nam phân hóa ngày càng sâu sắc.'],
-    imageHint: 'Toàn cảnh Đà Nẵng thế kỷ XIX, tàu chiến Pháp và pháo đài ven biển.',
+    imageHint: 'https://th.bing.com/th/id/R.0250fdd4e9f5f0c927344ac466dc4b87?rik=rahbC9vZbSmTjg&pid=ImgRaw&r=0 , https://baotanglichsu.vn/DataFiles/Uploaded/image/Phap-tan-cong-vao--Hoi-An.gif',
     keywords: ['Xâm lược', 'Đà Nẵng', 'Thuộc địa', 'Triều Nguyễn'],
   },
   {
@@ -49,7 +68,7 @@ export const TIMELINE_DATA: TimelineEvent[] = [
     ],
     relatedFigures: ['Triều đình Huế', 'Toàn quyền Pháp tại Đông Dương', 'Sĩ phu yêu nước'],
     significance: ['Đẩy phong trào yêu nước chuyển dần sang khuynh hướng mới.', 'Tạo tiền đề xuất hiện tư tưởng cách mạng hiện đại.'],
-    imageHint: 'Tư liệu ký kết hiệp ước và bản đồ Liên bang Đông Dương.',
+    imageHint: 'https://tse1.mm.bing.net/th/id/OIP.qNKkyNpQm4AdgLBXCjs7nwAAAA?rs=1&pid=ImgDetMain&o=7&rm=3 , https://video-thumbs.mediacdn.vn/zoom/600_315/vtv/2022/2/17/1702khatvongnonsong-16451113426801201291114-c4314_thumb6.jpg , https://tse3.mm.bing.net/th/id/OIP.PqhAsWg7Qm2VU5qkd9Un4gHaKq?rs=1&pid=ImgDetMain&o=7&rm=3 , https://vietjack.me/storage/uploads/images/11/5-1633939114.png',
     keywords: ['Patenôtre', 'Bảo hộ', 'Lệ thuộc', 'Phong trào yêu nước'],
   },
   {
@@ -68,7 +87,7 @@ export const TIMELINE_DATA: TimelineEvent[] = [
     ],
     relatedFigures: ['V.I. Lenin', 'Giai cấp công nhân Nga', 'Nguyễn Ái Quốc'],
     significance: ['Truyền bá chủ nghĩa Mác - Lênin vào Việt Nam.', 'Gợi mở con đường giải phóng dân tộc theo khuynh hướng vô sản.'],
-    imageHint: 'Hình ảnh Cách mạng Tháng Mười Nga và biểu tượng Xô viết.',
+    imageHint: 'https://th.bing.com/th/id/OIP.pR2F-n9ARxJAAOnmrXuXPQHaEo?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3 , https://special.vietnamplus.vn/wp-content/uploads/2021/03/ttxvn0901hc-1578581884-73.jpg',
     keywords: ['Lenin', 'Mác - Lênin', 'Xô viết', 'Giải phóng dân tộc'],
   },
   {
@@ -87,7 +106,7 @@ export const TIMELINE_DATA: TimelineEvent[] = [
     ],
     relatedFigures: ['Nguyễn Ái Quốc', 'Nhóm người Việt Nam yêu nước tại Pháp'],
     significance: ['Khẳng định lập trường đấu tranh dân tộc trên trường quốc tế.', 'Mở đầu giai đoạn hoạt động chính trị đối ngoại của Nguyễn Ái Quốc.'],
-    imageHint: 'Bản yêu sách 8 điểm và tư liệu Hội nghị Versailles.',
+    imageHint: 'https://tse2.mm.bing.net/th/id/OIP.9yPGKT_FE0Gs7n3ORUUPtgHaEK?rs=1&pid=ImgDetMain&o=7&rm=3 , https://tse2.mm.bing.net/th/id/OIP.Rad34p-9U32HIaPXnZ5viAHaEJ?rs=1&pid=ImgDetMain&o=7&rm=3',
     keywords: ['Versailles', 'Yêu sách 8 điểm', 'Nguyễn Ái Quốc', 'Quốc tế'],
     quote: '“Không có gì quý hơn độc lập, tự do” (tinh thần xuyên suốt của con đường đấu tranh dân tộc).',
   },
@@ -107,7 +126,7 @@ export const TIMELINE_DATA: TimelineEvent[] = [
     ],
     relatedFigures: ['Nguyễn Ái Quốc', 'Các hội viên Thanh niên cách mạng'],
     significance: ['Chuẩn bị lực lượng chính trị và cán bộ nòng cốt.', 'Là tổ chức tiền thân trực tiếp của Đảng Cộng sản Việt Nam.'],
-    imageHint: 'Nhà số 13 Văn Minh (Quảng Châu), báo Thanh niên, lớp huấn luyện chính trị.',
+    imageHint: 'https://www.nxbctqg.org.vn/img_data/images/images/duong%20c%C3%A1ch%20menh1.jpg , https://tse3.mm.bing.net/th/id/OIP.FPs_RvEo1_sPPygAbI4_lwHaEk?rs=1&pid=ImgDetMain&o=7&rm=3',
     keywords: ['Quảng Châu', 'Báo Thanh niên', 'Huấn luyện cán bộ', 'Tiền thân của Đảng'],
   },
   {
@@ -126,7 +145,7 @@ export const TIMELINE_DATA: TimelineEvent[] = [
     ],
     relatedFigures: ['Trần Văn Cung', 'Ngô Gia Tự', 'Nguyễn Đức Cảnh', 'Các chiến sĩ cộng sản tiên phong'],
     significance: ['Khẳng định xu thế tất yếu thành lập Đảng Cộng sản thống nhất.', 'Chuẩn bị trực tiếp cho Hội nghị hợp nhất đầu năm 1930.'],
-    imageHint: 'Tư liệu 5D Hàm Long, 312 Khâm Thiên và các tài liệu tuyên ngôn.',
+    imageHint: 'https://tse1.mm.bing.net/th/id/OIP.q1nYeXv10bhRecLCbmj_lQHaGm?rs=1&pid=ImgDetMain&o=7&rm=3 , https://th.bing.com/th/id/OIP.XVRoWU6lZ_YxNo2WfsGfqwHaEc?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3',
     keywords: ['Đông Dương Cộng sản Đảng', 'An Nam Cộng sản Đảng', 'Cộng sản Liên đoàn', 'Hợp nhất'],
   },
   {
@@ -151,7 +170,7 @@ export const TIMELINE_DATA: TimelineEvent[] = [
       'Đánh dấu bước ngoặt lịch sử, mở ra thời kỳ mới cho cách mạng Việt Nam.',
       'Đặt nền tảng tư tưởng - chính trị cho mọi thắng lợi cách mạng về sau.',
     ],
-    imageHint: 'Tư liệu Hội nghị hợp nhất ở Cửu Long (Hồng Kông), chân dung Nguyễn Ái Quốc.',
+    imageHint: 'https://tse4.mm.bing.net/th/id/OIP.mHQOewMsTL7HYcw1Zv8pnQAAAA?rs=1&pid=ImgDetMain&o=7&rm=3 , https://tapchicongsan.org.vn/documents/20182/21413683/thanh+l%E1%BA%ADp+%C4%90%E1%BA%A3ng+%E1%BB%9F+H%C6%B0%C6%A1ng+C%E1%BA%A3ng.jpg/63e086b2-3d72-41e5-836b-9d3d6532adc0?t=1581328399958',
     keywords: ['03/02/1930', 'Hồng Kông', 'Cương lĩnh đầu tiên', 'Liên minh công - nông', 'Độc lập dân tộc'],
     quote: '“Đảng là đội tiên phong của vô sản giai cấp”.',
   },
@@ -168,7 +187,7 @@ export const TIMELINE_DATA: TimelineEvent[] = [
     ],
     relatedFigures: ['Chủ tịch Hồ Chí Minh', 'Toàn dân Việt Nam'],
     significance: ['Mở ra kỷ nguyên độc lập dân tộc.', 'Khẳng định vai trò lãnh đạo của Đảng trong cách mạng giải phóng dân tộc.'],
-    imageHint: 'Quảng trường Ba Đình ngày 2/9/1945.',
+    imageHint: 'https://file3.qdnd.vn/data/images/0/2022/09/01/tvkimgiang/bac%20ho%20doc%20tuyen%20ngon.jpg?dpi=150&quality=100&w=870 , https://th.bing.com/th/id/R.f2844c006f4a4319cae34ced39421d6a?rik=%2flkvf4rryJJAgQ&pid=ImgRaw&r=0',
     keywords: ['Cách mạng Tháng Tám', 'Độc lập', 'Ba Đình'],
   },
   {
@@ -184,7 +203,7 @@ export const TIMELINE_DATA: TimelineEvent[] = [
     ],
     relatedFigures: ['Quân và dân cả nước', 'Các lực lượng cách mạng miền Nam'],
     significance: ['Kết thúc chiến tranh, thu non sông về một mối.', 'Tạo tiền đề cho công cuộc xây dựng và phát triển đất nước.'],
-    imageHint: 'Xe tăng tiến vào Dinh Độc Lập, ngày 30/4/1975.',
+    imageHint: 'https://th.bing.com/th/id/OIP.Pe0oFskEOCToxpT1h_b7RQHaEo?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3 , https://tse3.mm.bing.net/th/id/OIP.diOXxsp-rr_FKacx32gE6QHaFM?rs=1&pid=ImgDetMain&o=7&rm=3',
     keywords: ['30/4', 'Thống nhất', 'Đại thắng mùa Xuân'],
   },
   {
@@ -200,7 +219,7 @@ export const TIMELINE_DATA: TimelineEvent[] = [
     ],
     relatedFigures: ['Đại hội VI của Đảng', 'Nhân dân và cộng đồng doanh nghiệp'],
     significance: ['Mở ra giai đoạn phát triển mới của đất nước.', 'Tạo nền tảng cho tăng trưởng và hội nhập quốc tế.'],
-    imageHint: 'Tư liệu Đại hội VI và hình ảnh đổi mới kinh tế.',
+    imageHint: 'https://imgnvsk.vnanet.vn/mediaupload/org/2023/08/19/dhvi-619-16-48-13.png',
     keywords: ['Đổi mới', 'Mở cửa', 'Kinh tế thị trường định hướng XHCN'],
   },
   {
@@ -217,7 +236,7 @@ export const TIMELINE_DATA: TimelineEvent[] = [
     ],
     relatedFigures: ['Nhà nước', 'Doanh nghiệp', 'Thế hệ trẻ Việt Nam'],
     significance: ['Khẳng định năng lực thích ứng và bứt phá của Việt Nam.', 'Nối tiếp tinh thần độc lập, tự cường trong bối cảnh mới.'],
-    imageHint: 'Đô thị hiện đại, trung tâm công nghệ, hình ảnh chuyển đổi số tại Việt Nam.',
+    imageHint: 'https://tse1.mm.bing.net/th/id/OIP.OEGiqiIUm4jsYX0WFWi0JQHaEQ?rs=1&pid=ImgDetMain&o=7&rm=3 , https://th.bing.com/th/id/R.1a16024995eabc49f751b10d110439f3?rik=i%2b%2f%2bbzSpvsDJZQ&pid=ImgRaw&r=0',
     keywords: ['Hội nhập', 'Chuyển đổi số', 'AI', 'Phát triển bền vững'],
   },
 ];
