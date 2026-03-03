@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { RotateCcw, Play, ChevronRight } from 'lucide-react';
 
 import bgRoom from '../assets/Backgrounds/Căn phòng họp bí mật (Màn 1).jpg';
@@ -16,6 +16,13 @@ import avatarAnCuong from '../assets/characters/An_Cuong.jpg';
 import avatarPhungThien from '../assets/characters/Phung_Thien.jpg';
 import avatarBacThinh from '../assets/characters/Bac_Thinh.jpg';
 import avatarCongDuy from '../assets/characters/Cong_Duy.jpg';
+
+import soundIntroduce from '../assets/sounds/introduce.mp3';
+import soundMan1 from '../assets/sounds/man_1.mp3';
+import soundMan2 from '../assets/sounds/man_2.mp3';
+import soundMan3 from '../assets/sounds/man_3.mp3';
+import soundMan4 from '../assets/sounds/man_4.mp3';
+import soundMan5 from '../assets/sounds/man_5.mp3';
 
 type CharacterId =
   | 'MINH'
@@ -36,6 +43,8 @@ type BackgroundId =
   | 'FACTORY';
 
 type IntroStage = 'landing' | 'characters' | 'context' | 'game';
+
+type MusicKey = 'introduce' | 'man_1' | 'man_2' | 'man_3' | 'man_4' | 'man_5';
 
 interface DialogueLine {
   type: 'narration' | 'dialogue' | 'action';
@@ -786,12 +795,54 @@ const CAST_ORDER: CharacterId[] = [
 
 const DECISION_TOTAL = 4;
 
+const BGM_SOURCES: Record<MusicKey, string> = {
+  introduce: soundIntroduce,
+  man_1: soundMan1,
+  man_2: soundMan2,
+  man_3: soundMan3,
+  man_4: soundMan4,
+  man_5: soundMan5,
+};
+
+const clampVolume = (value: number) => Math.max(0, Math.min(100, value));
+
+const getMusicKeyForState = (introStage: IntroStage, sceneId: SceneId): MusicKey => {
+  if (introStage !== 'game') {
+    return 'introduce';
+  }
+
+  if (sceneId === 'INTRO' || sceneId.startsWith('M1_')) {
+    return 'man_1';
+  }
+
+  if (sceneId.startsWith('M2_')) {
+    return 'man_2';
+  }
+
+  if (sceneId.startsWith('M3_')) {
+    return 'man_3';
+  }
+
+  if (sceneId.startsWith('M4_')) {
+    return 'man_4';
+  }
+
+  return 'man_5';
+};
+
 export default function GamePage() {
   const [introStage, setIntroStage] = useState<IntroStage>('landing');
   const [sceneId, setSceneId] = useState<SceneId>('INTRO');
   const [lineIndex, setLineIndex] = useState(0);
   const [correctDecisions, setCorrectDecisions] = useState<Set<'M1' | 'M2' | 'M3' | 'M4'>>(new Set());
+  const [bgmEnabled, setBgmEnabled] = useState(false);
+  const [bgmVolume, setBgmVolume] = useState(55);
   const audioContextRef = useRef<AudioContext | null>(null);
+  const bgmPlayersRef = useRef<[HTMLAudioElement | null, HTMLAudioElement | null]>([null, null]);
+  const activePlayerIndexRef = useRef<0 | 1>(0);
+  const currentMusicKeyRef = useRef<MusicKey | null>(null);
+  const fadeFrameRef = useRef<number | null>(null);
+  const preloadedImageRef = useRef<Set<string>>(new Set());
 
   const scene = SCENES[sceneId];
   const currentLine = scene.lines[lineIndex];
@@ -799,6 +850,7 @@ export default function GamePage() {
   const currentSpeaker = currentLine?.type === 'dialogue' && currentLine.characterId ? currentLine.characterId : undefined;
 
   const score = useMemo(() => Math.round((correctDecisions.size / DECISION_TOTAL) * 100), [correctDecisions]);
+  const currentMusicKey = useMemo(() => getMusicKeyForState(introStage, sceneId), [introStage, sceneId]);
 
   const playSound = (
     type: 'button' | 'continue' | 'stage' | 'correct' | 'wrong' | 'reset'
@@ -850,7 +902,8 @@ export default function GamePage() {
       }
 
       gainNode.gain.setValueAtTime(0.0001, startAt);
-      gainNode.gain.exponentialRampToValueAtTime(gain, startAt + 0.015);
+      const boostedGain = Math.min(0.45, gain * 20);
+      gainNode.gain.exponentialRampToValueAtTime(boostedGain, startAt + 0.015);
       gainNode.gain.exponentialRampToValueAtTime(0.0001, endAt);
 
       osc.connect(gainNode);
@@ -894,6 +947,148 @@ export default function GamePage() {
     playTone({ frequency: 300, duration: 0.08, gain: 0.04, oscType: 'triangle' });
     playTone({ frequency: 200, duration: 0.1, gain: 0.035, oscType: 'triangle', delay: 0.06 });
   };
+
+  const stopFadeAnimation = () => {
+    if (fadeFrameRef.current !== null) {
+      window.cancelAnimationFrame(fadeFrameRef.current);
+      fadeFrameRef.current = null;
+    }
+  };
+
+  const crossFadePlayers = (
+    fromPlayer: HTMLAudioElement | null,
+    toPlayer: HTMLAudioElement,
+    targetVolume: number,
+    durationMs = 900
+  ) => {
+    stopFadeAnimation();
+
+    const fromStartVolume = fromPlayer?.volume ?? 0;
+    const toStartVolume = toPlayer.volume;
+    const startedAt = performance.now();
+
+    const animate = (now: number) => {
+      const progress = Math.min(1, (now - startedAt) / durationMs);
+
+      toPlayer.volume = toStartVolume + (targetVolume - toStartVolume) * progress;
+
+      if (fromPlayer) {
+        fromPlayer.volume = fromStartVolume * (1 - progress);
+      }
+
+      if (progress < 1) {
+        fadeFrameRef.current = window.requestAnimationFrame(animate);
+        return;
+      }
+
+      if (fromPlayer && fromPlayer !== toPlayer) {
+        fromPlayer.pause();
+        fromPlayer.currentTime = 0;
+      }
+
+      toPlayer.volume = targetVolume;
+      fadeFrameRef.current = null;
+    };
+
+    fadeFrameRef.current = window.requestAnimationFrame(animate);
+  };
+
+  const ensureMusicPlaying = (musicKey: MusicKey) => {
+    const targetVolume = bgmVolume / 100;
+
+    const players = bgmPlayersRef.current;
+    const activeIndex = activePlayerIndexRef.current;
+    const activePlayer = players[activeIndex];
+
+    if (currentMusicKeyRef.current === musicKey && activePlayer) {
+      activePlayer.volume = targetVolume;
+      return;
+    }
+
+    const nextIndex: 0 | 1 = activeIndex === 0 ? 1 : 0;
+    let nextPlayer = players[nextIndex];
+
+    if (!nextPlayer) {
+      nextPlayer = new Audio();
+      nextPlayer.preload = 'auto';
+      players[nextIndex] = nextPlayer;
+    }
+
+    nextPlayer.src = BGM_SOURCES[musicKey];
+    nextPlayer.loop = true;
+    nextPlayer.currentTime = 0;
+    nextPlayer.volume = 0;
+
+    void nextPlayer.play().then(() => {
+      crossFadePlayers(activePlayer, nextPlayer as HTMLAudioElement, targetVolume);
+      activePlayerIndexRef.current = nextIndex;
+      currentMusicKeyRef.current = musicKey;
+    }).catch(() => {
+      // Trình duyệt có thể chặn play nếu chưa có user gesture hợp lệ.
+    });
+  };
+
+  const startGameMusic = () => {
+    if (!bgmEnabled) {
+      setBgmEnabled(true);
+      return;
+    }
+
+    ensureMusicPlaying(currentMusicKey);
+  };
+
+  const preloadBackgroundImage = (source: string) => {
+    if (!source || preloadedImageRef.current.has(source)) {
+      return;
+    }
+
+    const image = new Image();
+    image.src = source;
+    preloadedImageRef.current.add(source);
+  };
+
+  const preloadUpcomingBackground = () => {
+    if (introStage !== 'game') {
+      if (introStage === 'characters') {
+        preloadBackgroundImage(BACKGROUNDS.FIELD);
+      }
+
+      if (introStage === 'context') {
+        preloadBackgroundImage(BACKGROUNDS[SCENES.INTRO.bg]);
+      }
+
+      return;
+    }
+
+    if (lineIndex < scene.lines.length - 1 || !scene.nextSceneId) {
+      return;
+    }
+
+    const nextScene = SCENES[scene.nextSceneId];
+    preloadBackgroundImage(BACKGROUNDS[nextScene.bg]);
+  };
+
+  useEffect(() => {
+    if (!bgmEnabled) {
+      return;
+    }
+
+    ensureMusicPlaying(currentMusicKey);
+  }, [bgmEnabled, currentMusicKey, bgmVolume]);
+
+  useEffect(() => {
+    return () => {
+      stopFadeAnimation();
+      bgmPlayersRef.current.forEach((player) => {
+        if (!player) {
+          return;
+        }
+
+        player.pause();
+        player.currentTime = 0;
+      });
+    };
+  }, []);
 
   const resetGame = () => {
     playSound('reset');
@@ -964,6 +1159,32 @@ export default function GamePage() {
       <div className="absolute inset-0 bg-black/55" />
 
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 pb-8 pt-24 sm:px-6 lg:px-8">
+        <div className="mb-4 ml-auto inline-flex items-center gap-2 rounded-lg border border-secondary-4/30 bg-primary/65 px-2 py-1 backdrop-blur-sm">
+          <button
+            type="button"
+            onClick={() => {
+              playSound('button');
+              setBgmVolume((prev) => clampVolume(prev - 10));
+            }}
+            className="h-8 w-8 rounded-md border border-secondary-4/30 text-secondary-4/90 hover:bg-secondary-4/10"
+            aria-label="Giảm âm lượng"
+          >
+            -
+          </button>
+          <span className="min-w-16 text-center text-xs text-secondary-4/80">Âm lượng {bgmVolume}%</span>
+          <button
+            type="button"
+            onClick={() => {
+              playSound('button');
+              setBgmVolume((prev) => clampVolume(prev + 10));
+            }}
+            className="h-8 w-8 rounded-md border border-secondary-4/30 text-secondary-4/90 hover:bg-secondary-4/10"
+            aria-label="Tăng âm lượng"
+          >
+            +
+          </button>
+        </div>
+
         {introStage !== 'game' ? (
           <div className="mx-auto my-auto w-full max-w-5xl rounded-2xl border border-secondary-4/20 bg-primary/80 p-6 backdrop-blur-md md:p-8">
             {introStage === 'landing' && (
@@ -977,6 +1198,7 @@ export default function GamePage() {
                   type="button"
                   onClick={() => {
                     playSound('stage');
+                    startGameMusic();
                     setIntroStage('characters');
                   }}
                   className="mx-auto mt-8 inline-flex items-center gap-2 rounded-full bg-secondary-3 px-6 py-3 font-semibold text-primary transition hover:scale-[1.02]"
@@ -1023,6 +1245,8 @@ export default function GamePage() {
                       playSound('stage');
                       setIntroStage('context');
                     }}
+                    onMouseEnter={preloadUpcomingBackground}
+                    onFocus={preloadUpcomingBackground}
                     className="inline-flex items-center gap-1 rounded-full bg-secondary-3 px-5 py-2.5 text-sm font-semibold text-primary transition hover:scale-[1.02]"
                   >
                     Tiếp: Bối cảnh
@@ -1054,6 +1278,8 @@ export default function GamePage() {
                       playSound('stage');
                       setIntroStage('game');
                     }}
+                    onMouseEnter={preloadUpcomingBackground}
+                    onFocus={preloadUpcomingBackground}
                     className="inline-flex items-center gap-1 rounded-full bg-secondary-3 px-5 py-2.5 text-sm font-semibold text-primary transition hover:scale-[1.02]"
                   >
                     Vào game
@@ -1077,10 +1303,10 @@ export default function GamePage() {
               >
                 <RotateCcw size={16} />
                 Chơi lại
-              </button> 
+              </button>
             </div>
 
-            <div className="mb-4 flex gap-2 overflow-x-auto rounded-xl border border-secondary-4/15 bg-primary/45 p-2 backdrop-blur-sm">
+            {/* <div className="mb-4 flex gap-2 overflow-x-auto rounded-xl border border-secondary-4/15 bg-primary/45 p-2 backdrop-blur-sm">
               {CAST_ORDER.map((id) => {
                 const character = CHARACTERS[id];
                 const isActive = currentSpeaker === id;
@@ -1101,23 +1327,28 @@ export default function GamePage() {
                   </div>
                 );
               })}
-            </div>
+            </div> */}
+
+            {currentLine?.type === 'dialogue' && currentLine.characterId && (
+              <div className="mb-3 flex justify-start">
+                <div className="w-44 rounded-2xl border border-secondary-3/50 bg-primary/85 p-3 shadow-xl backdrop-blur-sm">
+                  <div className="relative overflow-hidden rounded-xl border border-secondary-3/45">
+                    <img
+                      src={CHARACTERS[currentLine.characterId].avatar}
+                      alt={CHARACTERS[currentLine.characterId].name}
+                      className="h-36 w-full object-cover"
+                    />
+                    <span className="absolute right-2 top-2 h-3.5 w-3.5 rounded-full bg-emerald-400 ring-2 ring-primary" />
+                  </div>
+                  {/* <p className="mt-2 text-[11px] uppercase tracking-[0.12em] text-secondary-3">Đang nói</p> */}
+                  <p className="text-xl font-bold text-secondary-4 leading-tight">
+                    {CHARACTERS[currentLine.characterId].name}
+                  </p>
+                </div>
+              </div>
+            )}
 
             <div className="mt-auto rounded-2xl border border-secondary-4/20 bg-primary/80 p-5 shadow-2xl backdrop-blur-md md:p-6">
-              {currentLine?.type === 'dialogue' && currentLine.characterId && (
-                <div className="mb-4 flex items-center gap-3">
-                  <img
-                    src={CHARACTERS[currentLine.characterId].avatar}
-                    alt={CHARACTERS[currentLine.characterId].name}
-                    className="h-14 w-14 rounded-xl object-cover"
-                  />
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.15em] text-secondary-3">Nhân vật</p>
-                    <p className="font-semibold text-secondary-4">{CHARACTERS[currentLine.characterId].name}</p>
-                  </div>
-                </div>
-              )}
-
               {currentLine && (
                 <p
                   className={`min-h-20 text-lg leading-relaxed ${
@@ -1151,6 +1382,8 @@ export default function GamePage() {
                   <button
                     type="button"
                     onClick={handleContinue}
+                    onMouseEnter={preloadUpcomingBackground}
+                    onFocus={preloadUpcomingBackground}
                     className="inline-flex items-center gap-1 rounded-full bg-secondary-3 px-5 py-2.5 text-sm font-semibold text-primary transition hover:scale-[1.02]"
                   >
                     Tiếp tục
