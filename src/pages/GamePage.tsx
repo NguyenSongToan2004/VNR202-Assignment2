@@ -837,12 +837,14 @@ export default function GamePage() {
   const [correctDecisions, setCorrectDecisions] = useState<Set<'M1' | 'M2' | 'M3' | 'M4'>>(new Set());
   const [bgmEnabled, setBgmEnabled] = useState(false);
   const [bgmVolume, setBgmVolume] = useState(55);
+  const [isSceneLoading, setSceneLoading] = useState(false);
   const audioContextRef = useRef<AudioContext | null>(null);
   const bgmPlayersRef = useRef<[HTMLAudioElement | null, HTMLAudioElement | null]>([null, null]);
   const activePlayerIndexRef = useRef<0 | 1>(0);
   const currentMusicKeyRef = useRef<MusicKey | null>(null);
   const fadeFrameRef = useRef<number | null>(null);
   const preloadedImageRef = useRef<Set<string>>(new Set());
+  const imagePreloadPromisesRef = useRef<Map<string, Promise<void>>>(new Map());
 
   const scene = SCENES[sceneId];
   const currentLine = scene.lines[lineIndex];
@@ -1031,7 +1033,6 @@ export default function GamePage() {
   const startGameMusic = () => {
     if (!bgmEnabled) {
       setBgmEnabled(true);
-      return;
     }
 
     ensureMusicPlaying(currentMusicKey);
@@ -1039,22 +1040,47 @@ export default function GamePage() {
 
   const preloadBackgroundImage = (source: string) => {
     if (!source || preloadedImageRef.current.has(source)) {
-      return;
+      return Promise.resolve();
     }
 
-    const image = new Image();
-    image.src = source;
-    preloadedImageRef.current.add(source);
+    const existingPromise = imagePreloadPromisesRef.current.get(source);
+    if (existingPromise) {
+      return existingPromise;
+    }
+
+    const preloadPromise = new Promise<void>((resolve) => {
+      const image = new Image();
+
+      const markDone = () => {
+        preloadedImageRef.current.add(source);
+        imagePreloadPromisesRef.current.delete(source);
+        resolve();
+      };
+
+      image.onload = markDone;
+      image.onerror = markDone;
+      image.src = source;
+
+      if (image.decode) {
+        void image.decode().then(markDone).catch(() => {
+          // fallback onload/onerror
+        });
+      }
+    });
+
+    imagePreloadPromisesRef.current.set(source, preloadPromise);
+
+    return preloadPromise;
   };
 
   const preloadUpcomingBackground = () => {
     if (introStage !== 'game') {
       if (introStage === 'characters') {
-        preloadBackgroundImage(BACKGROUNDS.FIELD);
+        void preloadBackgroundImage(BACKGROUNDS.FIELD);
       }
 
       if (introStage === 'context') {
-        preloadBackgroundImage(BACKGROUNDS[SCENES.INTRO.bg]);
+        void preloadBackgroundImage(BACKGROUNDS[SCENES.INTRO.bg]);
       }
 
       return;
@@ -1065,7 +1091,7 @@ export default function GamePage() {
     }
 
     const nextScene = SCENES[scene.nextSceneId];
-    preloadBackgroundImage(BACKGROUNDS[nextScene.bg]);
+    void preloadBackgroundImage(BACKGROUNDS[nextScene.bg]);
   };
 
   useEffect(() => {
@@ -1099,8 +1125,22 @@ export default function GamePage() {
   };
 
   const goToScene = (nextSceneId: SceneId) => {
-    setSceneId(nextSceneId);
-    setLineIndex(0);
+    const nextScene = SCENES[nextSceneId];
+    const nextBackground = BACKGROUNDS[nextScene.bg];
+
+    if (preloadedImageRef.current.has(nextBackground)) {
+      setSceneId(nextSceneId);
+      setLineIndex(0);
+      return;
+    }
+
+    setSceneLoading(true);
+
+    void preloadBackgroundImage(nextBackground).finally(() => {
+      setSceneId(nextSceneId);
+      setLineIndex(0);
+      setSceneLoading(false);
+    });
   };
 
   const handleContinue = () => {
@@ -1157,6 +1197,13 @@ export default function GamePage() {
         style={{ backgroundImage: `url(${backgroundImage})` }}
       />
       <div className="absolute inset-0 bg-black/55" />
+      {isSceneLoading && (
+        <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/50 backdrop-blur-[1px]">
+          <div className="rounded-xl border border-secondary-4/30 bg-primary/80 px-5 py-3 text-sm text-secondary-4/90">
+            Đang tải cảnh...
+          </div>
+        </div>
+      )}
 
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 pb-8 pt-24 sm:px-6 lg:px-8">
         <div className="mb-4 ml-auto inline-flex items-center gap-2 rounded-lg border border-secondary-4/30 bg-primary/65 px-2 py-1 backdrop-blur-sm">
