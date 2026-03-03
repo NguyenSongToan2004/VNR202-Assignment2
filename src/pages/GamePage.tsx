@@ -17,12 +17,12 @@ import avatarPhungThien from '../assets/characters/Phung_Thien.jpg';
 import avatarBacThinh from '../assets/characters/Bac_Thinh.jpg';
 import avatarCongDuy from '../assets/characters/Cong_Duy.jpg';
 
-import soundIntroduce from '../assets/sounds/introduce.mp3';
-import soundMan1 from '../assets/sounds/man_1.mp3';
-import soundMan2 from '../assets/sounds/man_2.mp3';
-import soundMan3 from '../assets/sounds/man_3.mp3';
-import soundMan4 from '../assets/sounds/man_4.mp3';
-import soundMan5 from '../assets/sounds/man_5.mp3';
+import soundIntroduce from '../assets/Sounds/introduce.mp3';
+import soundMan1 from '../assets/Sounds/man_1.mp3';
+import soundMan2 from '../assets/Sounds/man_2.mp3';
+import soundMan3 from '../assets/Sounds/man_3.mp3';
+import soundMan4 from '../assets/Sounds/man_4.mp3';
+import soundMan5 from '../assets/Sounds/man_5.mp3';
 
 type CharacterId =
   | 'MINH'
