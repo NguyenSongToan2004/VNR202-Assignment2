@@ -97,10 +97,10 @@ export default function VideoPage() {
             </span>
           </h1>
 
-          <p className="vp-sub max-w-xl mx-auto text-secondary-4/55 text-base leading-relaxed">
+          {/* <p className="vp-sub max-w-xl mx-auto text-secondary-4/55 text-base leading-relaxed">
             Chương 1 — Đảng Cộng sản Việt Nam ra đời và lãnh đạo đấu tranh
             giành chính quyền <span className="text-secondary-3 font-medium">(1930 – 1945)</span>
-          </p>
+          </p> */}
 
           <div
             className="vp-divider mx-auto h-px w-40"
