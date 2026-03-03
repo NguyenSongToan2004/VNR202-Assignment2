@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { RotateCcw, Play, ChevronRight } from 'lucide-react';
 
 import bgRoom from '../assets/Backgrounds/Căn phòng họp bí mật (Màn 1).jpg';
@@ -791,6 +791,7 @@ export default function GamePage() {
   const [sceneId, setSceneId] = useState<SceneId>('INTRO');
   const [lineIndex, setLineIndex] = useState(0);
   const [correctDecisions, setCorrectDecisions] = useState<Set<'M1' | 'M2' | 'M3' | 'M4'>>(new Set());
+  const audioContextRef = useRef<AudioContext | null>(null);
 
   const scene = SCENES[sceneId];
   const currentLine = scene.lines[lineIndex];
@@ -799,7 +800,103 @@ export default function GamePage() {
 
   const score = useMemo(() => Math.round((correctDecisions.size / DECISION_TOTAL) * 100), [correctDecisions]);
 
+  const playSound = (
+    type: 'button' | 'continue' | 'stage' | 'correct' | 'wrong' | 'reset'
+  ) => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const AudioContextClass = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+
+    if (!AudioContextClass) {
+      return;
+    }
+
+    if (!audioContextRef.current) {
+      audioContextRef.current = new AudioContextClass();
+    }
+
+    const ctx = audioContextRef.current;
+
+    if (ctx.state === 'suspended') {
+      void ctx.resume();
+    }
+
+    const playTone = ({
+      frequency,
+      duration,
+      gain = 0.06,
+      oscType = 'sine',
+      detune = 0,
+      delay = 0,
+    }: {
+      frequency: number;
+      duration: number;
+      gain?: number;
+      oscType?: OscillatorType;
+      detune?: number;
+      delay?: number;
+    }) => {
+      const osc = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+      const startAt = ctx.currentTime + delay;
+      const endAt = startAt + duration;
+
+      osc.type = oscType;
+      osc.frequency.setValueAtTime(frequency, startAt);
+      if (detune !== 0) {
+        osc.detune.setValueAtTime(detune, startAt);
+      }
+
+      gainNode.gain.setValueAtTime(0.0001, startAt);
+      gainNode.gain.exponentialRampToValueAtTime(gain, startAt + 0.015);
+      gainNode.gain.exponentialRampToValueAtTime(0.0001, endAt);
+
+      osc.connect(gainNode);
+      gainNode.connect(ctx.destination);
+
+      osc.start(startAt);
+      osc.stop(endAt + 0.02);
+    };
+
+    if (type === 'button') {
+      playTone({ frequency: 460, duration: 0.08, gain: 0.04, oscType: 'triangle' });
+      return;
+    }
+
+    if (type === 'continue') {
+      playTone({ frequency: 320, duration: 0.08, gain: 0.045, oscType: 'triangle' });
+      playTone({ frequency: 420, duration: 0.1, gain: 0.035, oscType: 'triangle', delay: 0.05 });
+      return;
+    }
+
+    if (type === 'stage') {
+      playTone({ frequency: 220, duration: 0.14, gain: 0.05, oscType: 'sine' });
+      playTone({ frequency: 294, duration: 0.14, gain: 0.05, oscType: 'sine', delay: 0.08 });
+      playTone({ frequency: 349, duration: 0.18, gain: 0.05, oscType: 'sine', delay: 0.16 });
+      return;
+    }
+
+    if (type === 'correct') {
+      playTone({ frequency: 392, duration: 0.14, gain: 0.055, oscType: 'sine' });
+      playTone({ frequency: 494, duration: 0.14, gain: 0.055, oscType: 'sine', delay: 0.1 });
+      playTone({ frequency: 587, duration: 0.2, gain: 0.06, oscType: 'sine', delay: 0.2 });
+      return;
+    }
+
+    if (type === 'wrong') {
+      playTone({ frequency: 220, duration: 0.18, gain: 0.05, oscType: 'sawtooth', detune: -8 });
+      playTone({ frequency: 165, duration: 0.24, gain: 0.045, oscType: 'triangle', delay: 0.08 });
+      return;
+    }
+
+    playTone({ frequency: 300, duration: 0.08, gain: 0.04, oscType: 'triangle' });
+    playTone({ frequency: 200, duration: 0.1, gain: 0.035, oscType: 'triangle', delay: 0.06 });
+  };
+
   const resetGame = () => {
+    playSound('reset');
     setIntroStage('landing');
     setSceneId('INTRO');
     setLineIndex(0);
@@ -813,16 +910,20 @@ export default function GamePage() {
 
   const handleContinue = () => {
     if (lineIndex < scene.lines.length - 1) {
+      playSound('continue');
       setLineIndex((prev) => prev + 1);
       return;
     }
 
     if (scene.nextSceneId) {
+      playSound('stage');
       goToScene(scene.nextSceneId);
     }
   };
 
   const handleChoice = (choice: ChoiceOption) => {
+    playSound(choice.isCorrect ? 'correct' : 'wrong');
+
     if (choice.isCorrect) {
       setCorrectDecisions((prev) => {
         if (prev.has(choice.decisionKey)) {
@@ -854,8 +955,6 @@ export default function GamePage() {
       ? currentLine.text.trim().slice(1, -1)
       : (currentLine?.text ?? '');
 
-  // TODO: Khi cần bật âm thanh, có thể thêm state bật/tắt và phát theo từng scene (BGM/SFX) từ source nội bộ.
-
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-primary text-secondary-4">
       <div
@@ -876,7 +975,10 @@ export default function GamePage() {
                 </p>
                 <button
                   type="button"
-                  onClick={() => setIntroStage('characters')}
+                  onClick={() => {
+                    playSound('stage');
+                    setIntroStage('characters');
+                  }}
                   className="mx-auto mt-8 inline-flex items-center gap-2 rounded-full bg-secondary-3 px-6 py-3 font-semibold text-primary transition hover:scale-[1.02]"
                 >
                   <Play size={18} />
@@ -917,7 +1019,10 @@ export default function GamePage() {
                 <div className="mt-6 flex justify-end">
                   <button
                     type="button"
-                    onClick={() => setIntroStage('context')}
+                    onClick={() => {
+                      playSound('stage');
+                      setIntroStage('context');
+                    }}
                     className="inline-flex items-center gap-1 rounded-full bg-secondary-3 px-5 py-2.5 text-sm font-semibold text-primary transition hover:scale-[1.02]"
                   >
                     Tiếp: Bối cảnh
@@ -945,7 +1050,10 @@ export default function GamePage() {
                 <div className="mt-6 flex justify-end">
                   <button
                     type="button"
-                    onClick={() => setIntroStage('game')}
+                    onClick={() => {
+                      playSound('stage');
+                      setIntroStage('game');
+                    }}
                     className="inline-flex items-center gap-1 rounded-full bg-secondary-3 px-5 py-2.5 text-sm font-semibold text-primary transition hover:scale-[1.02]"
                   >
                     Vào game

@@ -6,6 +6,7 @@ const navLinks = [
   { path: '/noi-dung-cuong-linh-1930', label: 'Nội dung cương lĩnh chính trị 1930' },
   { path: '/lien-he-thuc-tien', label: 'Liên hệ thực tiễn' },
   { path: '/video', label: 'Xem video' },
+  { path: '/quiz', label: 'Quiz' },
   { path: '/ai-usage', label: 'AI Usage' },
 ];
 
