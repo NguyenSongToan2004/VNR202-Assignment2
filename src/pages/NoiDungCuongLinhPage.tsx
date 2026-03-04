@@ -224,7 +224,7 @@ export default function NoiDungCuongLinhPage() {
 
         {/* ----- Phần 4: Ba phương diện ----- */}
         <section className="content-section">
-          <SectionTitle number="4" title="Phương diện xã hội, nhiệm vụ và kinh tế" />
+          <SectionTitle number="4" title="Phương diện xã hội và kinh tế" />
           <div className="space-y-8">
             <div className="rounded-2xl border border-secondary-4/25 bg-secondary-1/10 p-6 md:p-8 w-full">
               <h4 className="text-secondary-3 font-bold text-base border-b border-secondary-3/40 pb-2 mb-4">
