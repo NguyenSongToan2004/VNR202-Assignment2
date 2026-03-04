@@ -6,7 +6,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const statsData = [
   { value: 90, label: 'Năm kinh nghiệm' },
-  { value: 15, label: 'Kỳ Đại hội Đảng' },
+  { value: 14, label: 'Kỳ Đại hội Đảng' },
   { value: 35, label: 'Năm Đổi mới' },
   { value: 98, label: 'Triệu dân' },
 ];
